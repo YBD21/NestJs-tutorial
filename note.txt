@@ -11,6 +11,8 @@ Start Prisma :
 
 npx prisma studio 
 
+npx prisma migrate dev -- update 
+
 create module
 nest g module <fileName>
 
