@@ -10,3 +10,13 @@ Start Docker :
 Start Prisma : 
 
 npx prisma studio 
+
+create module
+nest g module <fileName>
+
+create service
+nest g service prisma --no-spec 
+
+
+@Body('password', ParseIntPipe)
+convert into Int 
