@@ -11,19 +11,9 @@ export class AuthController {
   //   this.authService.login();
   // post request
   @Post('signup')
-  signup(
-    @Body('email')
-    email: string,
-    @Body('password', ParseIntPipe)
-    password: string,
-  ) {
-    console.log({
-      email,
-      typeOfEmail : typeof email,
-      password,
-      typeOfPassword : typeof password
-    });
-    return this.authService.signup();
+  signup(@Body() dto: AuthDto) {
+   console.log(dto)
+    return this.authService.signup(dto);
   }
 
   @Post('signin')
