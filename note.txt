@@ -1,0 +1,12 @@
+
+Start Docker : 
+
+# sudo service docker start 
+
+# docker ps -- check if docker service is enable or not 
+
+# docker-compose up -d dev-db
+
+Start Prisma : 
+
+npx prisma studio 
