@@ -22,13 +22,34 @@ export class AuthService {
       return user;
     } catch (error) {
       if (error.code === 'P2002') {
-        throw new ForbiddenException('Email already exists');
+        throw new ForbiddenException('Email already taken !');
       }
       throw error; // or any other appropriate action
     }
   }
 
-  signin() {
-    return 'I am signed in';
+  async signin(dto: AuthDto) {
+    //find the user by email
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+    // if user does not exist throw exception
+    if (!user) {
+      throw new ForbiddenException('Incorrect email or password !');
+    }
+
+    // compare password
+    const pwMatches = await argon.verify(user.hash, dto.password);
+
+    // if password incorrect throw exception
+    if (!pwMatches) {
+      throw new ForbiddenException('Incorrect email or password !');
+    }
+
+    // send back the user
+    delete user.hash;
+    return user;
   }
 }
